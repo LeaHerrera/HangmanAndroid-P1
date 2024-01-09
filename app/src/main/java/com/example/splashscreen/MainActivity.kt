@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -37,6 +36,14 @@ class MainActivity : ComponentActivity() {
                             arguments = listOf(navArgument("dificultad", { type = NavType.StringType }))
                         ) { backStackEntry ->
                             Screen1(navigation, backStackEntry.arguments?.getString("dificultad").orEmpty()
+                            )
+                        }
+                        composable(
+                            Routes.Pantalla2.route,
+                            arguments = listOf(navArgument("ganar", { type = NavType.StringType }))
+                        ) { backStackEntry ->
+                            Screen2(navigation, backStackEntry.arguments?.getBoolean("ganar") ?: false
+
                             )
                         }
 

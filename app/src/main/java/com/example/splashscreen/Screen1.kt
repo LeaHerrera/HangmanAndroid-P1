@@ -51,12 +51,14 @@ fun Screen1(navController: NavController, dificultad: String){
         arrayOf('R' , 'S', 'T', 'U', 'V', 'W'),
         arrayOf( 'X', 'Y', 'Z')
     )
-    Log.d("", "DIFICULTAD ${dificultad}")
 
     var palabraSegreta:String by remember { mutableStateOf(palabraSecreta(dificultad)) }
     var intentos:Int by remember { mutableIntStateOf( intentosInicio(dificultad) ) }
+    var ganar:Boolean by remember { mutableStateOf( false ) }
 
     var palabraEncontrada:Array<String> =  Array( palabraSegreta.length  ) {"_"}
+    var letrasBuenas:MutableList<Char> = mutableListOf()
+    var letrasMalas:MutableList<Char> = mutableListOf()
 
     Column (
         verticalArrangement = Arrangement.Center,
@@ -79,33 +81,45 @@ fun Screen1(navController: NavController, dificultad: String){
             }
         }
 
-
+        var colorBoton by remember { mutableStateOf( Color.Gray ) }
 
         for ( columna in 0 .. abc.lastIndex ){
             Row {
                 for ( caracter in abc[columna]){
+
+                    if (caracter in letrasBuenas){
+                        colorBoton = Color.Green
+                    } else if (caracter in letrasMalas){
+                        colorBoton = Color.Red
+                    } else {
+                        colorBoton = Color.Gray
+                    }
                     Button(
                         onClick = {
-                              intentos--
+                            intentos--
                         },
                         Modifier
                             .size(55.dp)
                             .padding(3.dp)
                         , //margen
-                        colors = ButtonDefaults.buttonColors(Color.Gray),
+                        colors = ButtonDefaults.buttonColors(colorBoton),
                         shape = RectangleShape
                     ){
                         Text(text = caracter.toString() , fontSize = 20.sp , fontWeight = FontWeight.Bold , textAlign = TextAlign.Center)
                     }
                 }
-
             }
-
         }
 
-
+        if (intentos <= 0 || ganar) {
+            navController.navigate(Routes.Pantalla2.createRoute(ganar))
+        }
 
     }
+}
+
+fun listacaracter(caracter:Char , palabraSecreta:String, listbuena: MutableList<Char> , listmala: MutableList<Char>){
+
 }
 
 fun palabraSecreta ( dificultad: String ):String{
