@@ -8,9 +8,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.splashscreen.ui.theme.SplashScreenTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,6 +32,15 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable(Routes.SplashScreen.route) { SplashScreen(navigation) }
                         composable(Routes.MenuScreen.route) { MenuScreen(navigation) }
+                        composable(
+                            Routes.Pantalla1.route,
+                            arguments = listOf(navArgument("dificultad", { type = NavType.StringType }))
+                        ) { backStackEntry ->
+                            Screen1(navigation, backStackEntry.arguments?.getString("dificultad").orEmpty()
+                            )
+                        }
+
+
                     }
 
                 }
