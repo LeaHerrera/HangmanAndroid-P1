@@ -49,7 +49,7 @@ fun MenuScreen(navController: NavController) {
         )
 
         //DROPMENU
-        val dificultades = arrayOf( "Nivel Facil" , "Nivel Dificil" )
+        val dificultades = arrayOf( "Nivel Facil" , "Nivel Normal" , "Nivel Dificil" )
 
         //variables para el DROPMENU (opcion multiple)
         var valorDificultad by remember { mutableStateOf("Selecciona Dificultad") }
