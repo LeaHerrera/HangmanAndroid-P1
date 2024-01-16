@@ -45,14 +45,16 @@ class MainActivity : ComponentActivity() {
                             arguments = listOf(
                                 navArgument("ganar") { type = NavType.BoolType },
                                 navArgument("intentos") { type = NavType.IntType },
-                                navArgument("dificultad") { type = NavType.StringType }
+                                navArgument("dificultad") { type = NavType.StringType },
+                                navArgument("palabraSecreta") { type = NavType.StringType }
                             )
                         ) { backStackEntry ->
                             Screen2(
                                 navigation,
                                 backStackEntry.arguments?.getBoolean("ganar") ?: true ,
                                 backStackEntry.arguments?.getInt("intentos") ?: 0 ,
-                                backStackEntry.arguments?.getString("dificultad").orEmpty()
+                                backStackEntry.arguments?.getString("dificultad").orEmpty(),
+                                backStackEntry.arguments?.getString("palabraSecreta").orEmpty(),
                             )
                         }
 

@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
@@ -19,8 +20,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -64,9 +67,13 @@ fun Screen1(navController: NavController, dificultad: String){
     ganar = ganar( arrayIntentos = palabraEncontrada , palabraSecreta = palabraSegreta , letrasBuenas = letrasBuenas )
 
     Column (
+        modifier = Modifier
+            .paint( //fondo
+                painterResource(id = R.drawable.fondo),
+                contentScale = ContentScale.FillBounds
+            ),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(15.dp)
+        horizontalAlignment = Alignment.CenterHorizontally
     ){
 
         CabeceraScreen1 ( palabraEncontrada , palabraSegreta ,  fallos )
@@ -114,7 +121,7 @@ fun Screen1(navController: NavController, dificultad: String){
         )
 
         if (fallos <= 0 || ganar) {
-            navController.navigate(Routes.Pantalla2.createRoute(ganar,intentos, dificultad))
+            navController.navigate(Routes.Pantalla2.createRoute(ganar,intentos, dificultad, palabraSegreta))
         }
     }
 }
@@ -136,9 +143,12 @@ fun CabeceraScreen1 ( palabraEncontrada: Array<String> , palabraSegreta: String 
 
         Text(text = "Ahorcado dentro de ${fallos} fallos" , fontSize = 15.sp , fontWeight = FontWeight.Bold , color = Color.Gray)
 
-        Row {
+        Row (
+            modifier= Modifier.fillMaxWidth(),
+            Arrangement.Center
+        ){
             repeat( palabraSegreta.length ){caracter ->
-                Text(text = palabraEncontrada[caracter] , fontSize = 60.sp , fontWeight = FontWeight.Bold , modifier = Modifier.padding(8.dp))
+                Text(text = palabraEncontrada[caracter] , fontSize = 25.sp , fontWeight = FontWeight.Bold , modifier = Modifier.padding(3.dp))
             }
         }
     }
@@ -205,9 +215,76 @@ fun colorBoton (caracter:Char , listbuena: MutableList<Char> , listmala: Mutable
 fun palabraSecreta ( dificultad: String ):String{
 
     val palabra:String
-    val palabrasFacil:Array<String> = arrayOf("FACIL")
-    val palabrasNormal:Array<String> = arrayOf("NORMAL")
-    val palabrasDificil:Array<String> = arrayOf("DIFICIL")
+    //listas generadas por chat gpt
+    val palabrasFacil:Array<String> = arrayOf(
+        "AMOR", "CASA", "DIA", "FLOR", "GATO",
+        "HORA", "IDEA", "JUEGO", "LUZ", "MESA",
+        "NINO", "OLA", "PIEDRA", "QUERIDO", "RIO",
+        "SOL", "TIERRA", "VIENTO", "ZAPATO",
+        "BUENO", "CALIDO", "DULCE", "FRESCO", "GRANDE",
+        "HERMOSO", "JOVEN", "LENTO", "MAGICO",
+        "NUEVO", "OSCURO", "PEQUENO", "RAPIDO", "SENCILLO",
+        "TRISTE", "UNICO", "VERDE", "BLANCO", "ROJO",
+        "AMARILLO", "AZUL", "FELIZ", "DIVERTIDO", "SABROSO",
+        "AMIGO", "FAMILIA", "FELIZ", "LIBRO", "CIELO",
+        "MONTANA", "CAMINO", "FIESTA", "BOSQUE", "MAR",
+        "CANCION", "RISA", "ABRAZO", "CAMINAR", "CORRER",
+        "SALTAR", "NADAR", "VIAJAR", "SONAR", "COMER",
+        "BEBER", "APRENDER", "ESCUCHAR", "MIRAR", "HABLAR",
+        "JUGAR", "AYUDAR", "BAILAR", "CANTAR", "SONREIR",
+        "DESCANSAR", "VIAJE", "AVENTURA", "DESCUBRIR", "DESPERTAR",
+        "DESCANSO", "REIR", "FELICIDAD", "SUEÑO", "ENERGIA",
+        "PAZ", "ESPERANZA", "LIBERTAD", "EXITO", "SALUD",
+        "CREATIVIDAD", "AMABILIDAD", "AMISTAD",
+        "CONOCIMIENTO", "PACIENCIA", "RESPETO" , "BUENO" ,
+        "MALO" , "YO" , "TU" , "AMIGOS" , "ELLOS" , "ELLAS" ,
+        "LEON" , "LEER" , "GATOS"
+    )
+    val palabrasNormal:Array<String> = arrayOf(
+        "AEROPUERTO", "OCEANICO", "AUTOMOVIL", "AVENTURERO", "BIOLOGIA",
+        "CALEIDOSCOPIO", "OCULTACION", "DESARROLLADOR", "EDUCACION", "ELECTRONICO",
+        "FANTASTICO", "GALAXIA", "HELICOPTERO", "HIPNOTIZAR", "INNOVACION",
+        "JEROGLIFICO", "JARDINERIA", "KILOMETRO", "LABORATORIO", "MELODIA",
+        "NAVEGACION", "OASIS", "PARALELEPIPIDO", "QUIMICA", "RAZONAMIENTO",
+        "SENSACIONAL", "SINFONIA", "TELESCOPIO", "UBICACION", "UTOPIA",
+        "VIBRACION", "VIAJERO", "XENOFOBIA", "XILOFONO", "YOGA",
+        "ZOLOGICO", "ALUCINANTE", "BICICLETA", "CATACLISMO", "DIAMANTE",
+        "ECOLOGIA", "FOTOGRAFIA", "GEOGRAFIA", "HARMONIA", "ILUSORIO",
+        "JUBILACION", "KIOSCO", "LUMINOSO", "MAGNIFICO", "NAUTICO",
+        "ORBITA", "PATRIOTICO", "QUINTETO", "RADIANTE", "SURREALISTA",
+        "TECNICO", "UNIVERSIDAD", "VORAZ", "WINDSURF", "XEROGRAGIA",
+        "YOGUR", "ZUMBIDO", "AMPLIFICACION", "BIBLIOTECA", "CONCENTRACION",
+        "DECISION", "ELOCUENCIA", "FASCINANTE", "GENERACION", "HIPOPOTAMO",
+        "IMPONENTE", "JUVENTUD", "LIBERACION", "MAJESTUOSO",
+        "NEUROCIENCIA", "OCUPACION", "POLARIZACION", "RECONOCIMIENTO",
+        "SINCRONIZACION", "TRANSFORMACION", "UBICACION", "VANGUARDIA", "ZARZAMORA"
+    )
+    val palabrasDificil:Array<String> = arrayOf(
+        "ABSTRUSO", "CAUTERIO", "DIAFANO", "EBANO", "FERETRO",
+        "GELIDO", "HABIL", "IGNEO", "JACENA", "KAISER",
+        "LOBREGO", "MIMICO", "NANDU", "OSCURO", "PETREO",
+        "QUIMERA", "RUSTICO", "SERPICO", "TACITO", "URSIDO",
+        "VASTAGO", "WESTICO", "XEROX", "YAMBICO", "ZEFIRO",
+        "ALGIDO", "BUHO", "CIRCULO", "DOCIL", "EPICO",
+        "FARRAGO", "GONDOLA", "HELICE", "INDIGO", "JUBILO",
+        "KARATE", "LAPIZ", "MUSICO", "NONO", "OVULO",
+        "PUDICO", "QUASAR", "RAFAGA", "SOLIDO", "TECNICO",
+        "ULTIMO", "VERTIGO", "WESTERN", "XENON", "YOQUEY",
+        "ZEJEL", "ACRATA", "BOVEDA", "CALIDO", "DOLAR",
+        "ELFICO", "FULGIDO", "GELIDO", "HABITO", "IMPETU",
+        "JUBILO", "KETCHUP", "LOBREGO", "MISTICO", "ÑOÑO",
+        "OSCURO", "PETREO", "QUIMERA", "RUSTICO", "SERPICO",
+        "TACITO", "URSIDO", "VASTAGO", "XILOFONO", "XEROX",
+        "YAMBICO", "ZEFIRO", "ALGIDO", "BUHO", "CIRCULO",
+        "DOCIL", "EPICO", "FARRAGO", "GONDOLA", "HELICE",
+        "INDIGO", "JUBILO", "KARATE", "LAPIZ", "MUSICO",
+        "ÑAME", "OVULO", "PUDICO", "CAZAR", "RAFAGA",
+        "SOLIDO", "TECNICO", "ULTIMO", "VERTIGO", "KILOMETRO",
+        "XENON", "YOQUEY", "ZEJEL", "ACRATA", "BOVEDA",
+        "CALIDO", "DOLAR", "ELFICO", "FULGIDO", "GELIDO",
+        "HABITO", "IMPETU", "JUBILO", "KETCHUP", "LOBREGO",
+        "MISTICO", "ÑU", "OVULO"
+    )
 
     if ( dificultad == "Nivel Facil" ) {
         palabra = palabraAleatoria(palabrasFacil)
@@ -226,9 +303,9 @@ fun intentosInicio(dificultad: String):Int{
     if ( dificultad == "Nivel Facil" ) {
         intentos = 10
     } else if ( dificultad == "Nivel Normal") {
-        intentos = 7
+        intentos = 8
     } else {
-        intentos = 5
+        intentos = 7
     }
 
     return intentos
