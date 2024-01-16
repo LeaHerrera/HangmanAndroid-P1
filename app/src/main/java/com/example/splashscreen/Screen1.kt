@@ -122,13 +122,15 @@ fun Screen1(navController: NavController, dificultad: String){
 @Composable
 fun CabeceraScreen1 ( palabraEncontrada: Array<String> , palabraSegreta: String ,  fallos: Int ){
 
+    var imagen = imagenesPerder.size - fallos - 1
+
     Column (
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.padding(40.dp)
     ){
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_foreground ) ,
+            painter = painterResource(id = imagenesPerder[imagen] ) ,
             contentDescription = ""
         )
 
@@ -144,17 +146,17 @@ fun CabeceraScreen1 ( palabraEncontrada: Array<String> , palabraSegreta: String 
 }
 
 val imagenesPerder:Array<Int> = arrayOf(
-    R.drawable.hangmanIntentoA,
-    R.drawable.hangmanIntentoB,
-    R.drawable.hangmanIntentoC,
-    R.drawable.hangmanIntentoD,
-    R.drawable.hangmanIntentoE,
-    R.drawable.hangmanIntentoF,
-    R.drawable.hangmanIntentoG,
-    R.drawable.hangmanIntentoH,
-    R.drawable.hangmanIntentoI,
-    R.drawable.hangmanIntentoJ,
-    R.drawable.hangmanIntentoK
+    R.drawable.intento1,
+    R.drawable.intento2,
+    R.drawable.intento3,
+    R.drawable.intento4,
+    R.drawable.intento5,
+    R.drawable.intento10,
+    R.drawable.intento11,
+    R.drawable.intento6,
+    R.drawable.intento7,
+    R.drawable.intento8,
+    R.drawable.intento9
 )
 
 fun ganar ( arrayIntentos:Array<String> , palabraSecreta: String , letrasBuenas:MutableList<Char> ):Boolean{

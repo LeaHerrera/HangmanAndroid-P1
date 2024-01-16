@@ -18,9 +18,10 @@ fun Splash(alphaAnim: Float) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Image(painter = painterResource(id = R.drawable.ic_launcher_foreground),
+        Image(painter = painterResource(id = R.drawable.logo),
             contentDescription = "logo", alpha = alphaAnim
         )
-        Text(text = "Welcome!", fontSize = 24.sp, fontWeight = FontWeight.SemiBold)
+        Text(text = "Welcome!", fontSize = 30.sp, fontWeight = FontWeight.SemiBold)
+
     }
 }
