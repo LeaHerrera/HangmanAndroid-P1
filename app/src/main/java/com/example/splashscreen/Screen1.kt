@@ -114,7 +114,7 @@ fun Screen1(navController: NavController, dificultad: String){
         )
 
         if (fallos <= 0 || ganar) {
-            navController.navigate(Routes.Pantalla2.createRoute(ganar))
+            navController.navigate(Routes.Pantalla2.createRoute(ganar,intentos, dificultad))
         }
     }
 }
@@ -142,6 +142,20 @@ fun CabeceraScreen1 ( palabraEncontrada: Array<String> , palabraSegreta: String 
     }
 
 }
+
+val imagenesPerder:Array<Int> = arrayOf(
+    R.drawable.hangmanIntentoA,
+    R.drawable.hangmanIntentoB,
+    R.drawable.hangmanIntentoC,
+    R.drawable.hangmanIntentoD,
+    R.drawable.hangmanIntentoE,
+    R.drawable.hangmanIntentoF,
+    R.drawable.hangmanIntentoG,
+    R.drawable.hangmanIntentoH,
+    R.drawable.hangmanIntentoI,
+    R.drawable.hangmanIntentoJ,
+    R.drawable.hangmanIntentoK
+)
 
 fun ganar ( arrayIntentos:Array<String> , palabraSecreta: String , letrasBuenas:MutableList<Char> ):Boolean{
 

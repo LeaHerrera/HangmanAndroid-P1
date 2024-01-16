@@ -16,9 +16,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 @Composable
-fun Screen2(navController: NavController, ganar: Boolean){
+fun Screen2(navController: NavController, ganar: Boolean , intentos:Int , dificultad:String){
 
-    var ganar:Boolean by remember { mutableStateOf( false ) }
+    var win:Boolean by remember { mutableStateOf( ganar ) }
     var continuar:Boolean by remember { mutableStateOf( false ) }
 
 
@@ -28,9 +28,12 @@ fun Screen2(navController: NavController, ganar: Boolean){
         modifier = Modifier.padding(15.dp)
     ){
 
-        Text(text = "hola")
+        if (ganar){
+            Text(text = "siii")
 
-
+        } else {
+            Text(text = "noooo")
+        }
 
     }
 }

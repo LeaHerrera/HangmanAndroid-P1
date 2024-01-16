@@ -4,7 +4,7 @@ sealed class Routes(val route: String) {
     object Pantalla1:Routes("pantalla1/{dificultad}"){
         fun createRoute(dificultad:String) = "pantalla1/$dificultad"
     }
-    object Pantalla2:Routes("pantalla2/{ganar}"){
-        fun createRoute(ganar:Boolean) = "pantalla2/$ganar"
+    object Pantalla2:Routes("pantalla2/{ganar}/{intentos}/{dificultad}"){
+        fun createRoute(ganar:Boolean, intentos:Int , dificultad:String) = "pantalla2/$ganar/$intentos/$dificultad"
     }
 }

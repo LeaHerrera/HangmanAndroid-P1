@@ -33,17 +33,26 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.MenuScreen.route) { MenuScreen(navigation) }
                         composable(
                             Routes.Pantalla1.route,
-                            arguments = listOf(navArgument("dificultad", { type = NavType.StringType }))
+                            arguments = listOf(
+                                navArgument("dificultad") { type = NavType.StringType }
+                            )
                         ) { backStackEntry ->
                             Screen1(navigation, backStackEntry.arguments?.getString("dificultad").orEmpty()
                             )
                         }
                         composable(
                             Routes.Pantalla2.route,
-                            arguments = listOf(navArgument("ganar", { type = NavType.StringType }))
+                            arguments = listOf(
+                                navArgument("ganar") { type = NavType.BoolType },
+                                navArgument("intentos") { type = NavType.IntType },
+                                navArgument("dificultad") { type = NavType.StringType }
+                            )
                         ) { backStackEntry ->
-                            Screen2(navigation, backStackEntry.arguments?.getBoolean("ganar") ?: false
-
+                            Screen2(
+                                navigation,
+                                backStackEntry.arguments?.getBoolean("ganar") ?: true ,
+                                backStackEntry.arguments?.getInt("intentos") ?: 0 ,
+                                backStackEntry.arguments?.getString("dificultad").orEmpty()
                             )
                         }
 
